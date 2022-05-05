@@ -1,0 +1,56 @@
+//1번
+function solution(str) {
+  //두번째로 자주등장하는 글자
+  //가장 많이 등장하는 글자가 2개가 있으면 3번째
+  //두번째로 자주 등장하는 글자가 하나가 아니라면 알파벳 순으로
+  //한 종류 밖에 없거나 글자가 없는경우 '-'으로 처리 ex) xxx => -, awawaw -> -
+  const result = {};
+  str.split('').forEach((x) => {
+    result[x] = (result[x] || 0) + 1;
+  });
+  // console.log(Object.keys(result));
+  // console.log(result);
+  let max = 0;
+  let second = 0;
+  for (let [index, [key, value]] of Object.entries(result).entries()) {
+    console.log(index, key, result[key]);
+    if (index === 0) {
+      max = result[key];
+    } else if (result[key] > max) {
+      second = max;
+      max = result[key];
+    } else if (result[key] > second) {
+      second = result[key];
+    }
+  }
+  console.log(second);
+  // return maxChar;
+}
+
+const arr = 'xddxdca';
+const arr2 = 'jpcpjppcyycyy';
+const arr3 = 'brbabrrara';
+const arr4 = 'xxx';
+const arr5 = 'gwgwgw';
+
+console.log(solution(arr2));
+
+//2번
+function solution(estimates, k) {
+  let temp = 0;
+  let userCountDay = [];
+
+  for (let i = 0; i < estimates.length - k + 1; i++) {
+    for (let m = k - 1; m >= 0; m--) {
+      temp = temp + estimates[i + k - m - 1];
+    }
+    userCountDay.push(temp);
+    temp = 0;
+  }
+
+  return Math.max(...userCountDay);
+}
+
+const arr = [5, 1, 9, 8, 10, 5];
+const arr2 = [10, 1, 10, 1, 1, 4, 3, 10];
+console.log(solution(arr, 3));
